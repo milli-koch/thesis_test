@@ -11,7 +11,7 @@ view: keywords_clean {
 
   measure: count {
     type: count
-    drill_fields: [movies.title]
+    drill_fields: [keyword]
   }
 
   dimension: prim_key {
