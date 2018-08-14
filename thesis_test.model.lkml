@@ -10,13 +10,23 @@ datagroup: thesis_test_default_datagroup {
 
 persist_with: thesis_test_default_datagroup
 
-# NOTE: please see https://looker.com/docs/r/sql/bigquery?version=5.14
-# NOTE: for BigQuery specific considerations
-
 explore: credits {}
 
-explore: keywords {}
+explore: movies {
+  sql_always_where: ${movies.title} is not null and ${movies.status} = "Released";;
+  join: keywords_clean {
+    sql_on: ${movies.id} = ${keywords_clean.id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
 
-explore: links {}
+  join: genres {
+    sql_on: ${movies.id} = ${genres.id} ;;
+    relationship: one_to_many
+    type: left_outer
+  }
+}
 
-explore: rating {}
+explore: genres {}
+
+explore: keywords_clean {}
